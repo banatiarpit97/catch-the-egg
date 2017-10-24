@@ -1,0 +1,41 @@
+body{
+	background: url("../images/background.jpg") fixed;
+	background-repeat: no-repeat;
+	background-position: center center;
+	background-size: 100% 100%;
+	overflow: hidden;
+}
+
+hr{
+	border-width: 2px;
+    width: 100%;
+    border-color: black;
+    margin-top: 0;
+    position: absolute;
+    top: 17%;
+}
+#chicken1, #chicken2, #chicken3, #chicken4{
+    width: 14%;
+    height: 20%;
+    margin-right: 9%;
+    margin-top: 1%;
+}
+#chicken1{
+	margin-left: 7%;
+}
+#basket{
+	position: absolute;
+	bottom: 0; 	
+	left: 0;
+	width: 11%;
+	height: 16%;
+}
+#egg{
+	position: absolute;
+	top: 18%;
+}
+#brokenegg{
+	position: absolute;
+	bottom: 0;
+	height: 52px;
+}
