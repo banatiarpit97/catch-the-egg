@@ -1,11 +1,92 @@
+angular.module('catch-egg',['ngMaterial'])
+    .controller('EggGame', function($scope, $mdDialog){
+
+      $scope.start = function(ev) {
+             $mdDialog.show({
+                 controller: DialogStartController,
+                 templateUrl: 'gameModes.html',
+                 parent: angular.element(document.body),
+                 targetEvent: ev,
+                 clickOutsideToClose:true// Only for -xs, -sm breakpoints.
+             });
+
+     };
+    $scope.end = function(ev) {
+        console.log(score)
+             $mdDialog.show({
+                 controller: DialogEndController,
+                 templateUrl: 'gameEnd.html',
+                 parent: angular.element(document.body),
+                 targetEvent: ev,
+                 clickOutsideToClose:true// Only for -xs, -sm breakpoints.
+             });
+
+     };
+     $scope.start();
+
+    function DialogStartController($scope, $mdDialog) {
+            $scope.speed = "Amateur";
+            score = 0;
+            lives = 3;
+            $(".life").removeClass("hidden")
+            $("#score").html(score);
+
+             $scope.close = function() {
+                 $mdDialog.cancel();
+             };
+             $scope.cancel = function() {
+                 $mdDialog.cancel();
+             };
+             $scope.confirmMode = function() {
+
+               mode = $scope.overflow;
+               speed = $scope.speed;
+                   if(speed == "Beginner"){
+                       frequency = 200;
+                    } 
+                    else if(speed == "Amateur"){
+                      frequency = 100;
+                    }   
+                    else if(speed == "Professional"){
+                      frequency = 50;
+                    } 
+                    game = true;
+                    generateEgg();
+                 $mdDialog.cancel();
+             };
+        };
+
+      function DialogEndController($scope, $mdDialog) {
+        $scope.scoreend = score;
+        $scope.levelend = speed;
+             $scope.close = function() {
+                 $mdDialog.cancel();
+             };
+             $scope.cancel = function() {
+                 $mdDialog.cancel();
+             };
+             $scope.confirmMode = function() {
+                 $mdDialog.cancel();
+                 
+                $mdDialog.show({
+                 controller: DialogStartController,
+                 templateUrl: 'gameModes.html',
+                 parent: angular.element(document.body),
+                 clickOutsideToClose:true// Only for -xs, -sm breakpoints.
+             });
+             };
+        };
+
 var chickWidth = $("#chicken1").width();
 var basketWidth = $("#basket").width();
 var basketInitial = ($(window).width()/2)-(basketWidth/2);
 $("#basket").css("left", basketInitial)
 var maxX = $(window).width()-basketWidth;
-var game = true;
-var score = 0;
-var lives = 3;
+var game ;
+var score;
+var lives;
+var frequency;
+var speed;
 $(document).keydown(function(e){
 	if(e.keyCode == '39' && game){
     moveRight();
@@ -50,12 +131,14 @@ $(document).mousemove(function(event){
 });
 
 function generateEgg(){
+  if(game){
   randomChickNumber = (Math.floor(Math.random()*4))+1;
   randomChickId = "chicken"+randomChickNumber;
   chickLeft = document.getElementById(randomChickId).offsetLeft;
   EggLeft = chickLeft+(chickWidth/2);
   $("#egg").removeClass("hidden").css({"left": EggLeft, "top":"20%"});
-  interval = setInterval(moveDown, 150);
+  interval = setInterval(moveDown, frequency);
+}
 };
 
 generateEgg();
@@ -82,6 +165,10 @@ function checkDown(){
     $("#egg").addClass("hidden");
     document.getElementById("hit").play();
     $("#brokenegg").removeClass("hidden").css("left", EggLeft);
+    if(lives == 0){
+      game = false;
+      $scope.end();
+    }
     afterBroken = setTimeout(function(){
       $("#brokenegg").addClass("hidden");
       generateEgg();
@@ -96,6 +183,8 @@ function pause(){
   }
   else{
     game = true;
-    interval = setInterval(moveDown, 150);
+    interval = setInterval(moveDown, frequency);
   }
 }
+
+});

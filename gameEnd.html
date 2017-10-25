@@ -1,0 +1,42 @@
+<div>
+  <style>
+  .dialog_box{
+    width: 450px;
+    max-width: 100%;
+    }
+    md-dialog-content{
+      padding-left: 3%;
+      padding-top: 5%;
+    }
+  </style>
+
+<md-dialog class = "dialog_box">
+    <form ng-cloak>
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <h1>Game Over</h1>
+                <span flex></span>
+                <md-button class="md-icon-button" ng-click="close()">
+                    <i class="fa fa-times fa-lg"></i>
+                </md-button>
+            </div>
+        </md-toolbar>
+
+        <md-dialog-content>
+          <h3>You lost all your 3 lives!</h3>
+          <h3>Your score is : <span ><b ng-bind="scoreend"></b></span> at level : <span><b ng-bind="levelend"></b></span></h3>
+        </md-dialog-content>
+
+        <md-dialog-actions layout="row">
+            <md-button ng-click="cancel()">
+                Cancel
+            </md-button>
+            <md-button  md-no-ink class="md-primary" ng-click="confirmMode()">
+                Play Again
+            </md-button>
+        </md-dialog-actions>
+    </form>
+</md-dialog>
+  <!-- <script type="text/javascript" src = "js/main.js"></script> -->
+
+</div>

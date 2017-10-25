@@ -13,7 +13,7 @@
     <link rel="stylesheet" type="text/css" href="css/main.css">
 </head>
 
-<body ng-app = "catch-egg">
+<body ng-app = "catch-egg" ng-controller="EggGame">
 
 <hr>
 
@@ -29,6 +29,14 @@
 </div>
 
 <div id="scorediv">Score : <span id="score">0</span></div>
+
+<!-- <div class="playButton">
+    <md-content>
+        <section layout="row" layout-sm="column" layout-wrap>
+            <md-button class="md-raised md-primary" ng-click="mode($event)">Play Game</md-button>
+        </section>
+    </md-content>        
+</div> -->
 
 <img src="images/egg3.png" width="37px" class="hidden" id="egg">
 
@@ -55,10 +63,6 @@
 <script src="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.js"></script>
 <script type="text/javascript" src="js/main.js"></script>
 <!--Script FIles included here -->
-<script >
-    angular.module('catch-egg',['ngMaterial']);
-
-</script>
 </body>
 
 </html>
